@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link rel="icon" href="images/logo-libros.png" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Cursos CATEDU</title>
+  </head>
+  <body>
+      
+    <nav class="navbar navbar-expand-sm navbar-dark" aria-label="Third navbar example">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="https://moodle.catedu.es">Cursos Aularagón</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+    
+          <div class="collapse navbar-collapse" id="navbarsExample03">
+            <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+              <li class="nav-item mx-5">
+                <a class="nav-link active" aria-current="page" href="https://catedu.es" target="_blank">CATEDU</a>
+              </li>
+            </ul>
+            <form>
+              <input class="form-control" type="text" placeholder="Busca" aria-label="Search" id="search" onkeyup="searchCourse()">
+            </form>
+          </div>
+        </div>
+      </nav>
+
+
+    <h1 class="text-center mt-3">Aularagón</h1>
+    <div class="container">
+        {{ $dataC := getCSV "," "https://docs.google.com/spreadsheets/d/e/2PACX-1vR-BAUvNUjp2AeV_daeeqHReX0M3ew3ZpEL3nfkrz96uUd816mV_hV1uWMvbsACphEBGjqHJBswGwFz/pub?gid=1988493545&single=true&output=csv" }}
+        {{ $dataC := first 121 (after 1 $dataC) }}
+        <div class="row">
+          <h2>Por temas</h2>
+        </div>
+        <div class="card-group " id="courseInfo">
+        {{ range $i, $r := $dataC }}
+            <div class="col-sm-6 col-lg-4 cardContenedor">
+                <div class="card mt-2 mx-1">
+                  {{ $imgUrl := index $r 7 }}
+                  {{ if $imgUrl }}
+                    <img class="card-img-top" src="{{ index $r 7 }}" alt="Card image cap">
+                  {{ else }}
+                    <img class="card-img-top" src="https://via.placeholder.com/150" alt="Card image cap">
+                  {{ end }}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ index $r 0 }}</h5>
+                        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#{{ index $r 0 | urlize }}">+ info</button>
+                        <a href="https://moodle.catedu.es/course/view.php?id={{ index $r 6 }}" class="btn btn-secondary">Curso</a>
+                        {{ $libro := index $r 5 }}
+                        {{ if $libro }}
+                          <a href="https://catedu.github.io/{{ $libro }}" class="btn btn-success">Libro</a>
+                        {{ end }}
+                    </div>
+                </div>
+            </div>
+        {{ end }}
+        </div>
+        {{ range $i, $r := $dataC }}
+        <div class="modal" id="{{ index $r 0 | urlize }}" tabindex="-1" aria-labelledby="{{ index $r 0 | urlize }}Label" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-scrollable modal-fullscreen">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">{{ index $r 0 }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <p>{{ index $r 2 | markdownify}}</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        {{ end }}
+
+    </div>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+    -->
+    <script src="js/myscripts.js"></script>
+  </body>
+</html>
