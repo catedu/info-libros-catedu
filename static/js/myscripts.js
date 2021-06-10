@@ -1,9 +1,3 @@
-$(document).ready(function(){
-    $(".btn.btn-info").click(function() {
-        $(this).attr("id").text = "hola"
-    });
-  });
-
 function searchCourse() {
 var input, filter, cursos, cardContenedor, a, i, txtValue;
 input = document.getElementById("search");
