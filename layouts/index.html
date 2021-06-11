@@ -32,9 +32,6 @@
           </div>
         </div>
       </nav>
-
-
-    <h1 class="text-center mt-3">Aularagón</h1>
     <div class="container">
         {{ $dataC := getCSV "," "https://docs.google.com/spreadsheets/d/e/2PACX-1vR-BAUvNUjp2AeV_daeeqHReX0M3ew3ZpEL3nfkrz96uUd816mV_hV1uWMvbsACphEBGjqHJBswGwFz/pub?gid=1988493545&single=true&output=csv" }}
         {{ $dataC := first 121 (after 1 $dataC) }}
@@ -82,7 +79,7 @@
                 <p>{{ index $r 3 | markdownify }}</p>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
               </div>
             </div>
           </div>

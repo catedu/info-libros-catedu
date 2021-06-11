@@ -12,3 +12,7 @@
     height: 15vw;
     object-fit: cover;
 }
+
+body {
+    padding-top: 70px; 
+}
