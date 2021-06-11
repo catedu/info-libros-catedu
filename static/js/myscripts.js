@@ -8,9 +8,9 @@ for (i = 0; i < cardContenedor.length; i++) {
     a = cardContenedor[i].getElementsByTagName("h5")[0];
     txtValue = a.textContent || a.innerText;
     if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        cardContenedor[i].style.display = "";
+        cardContenedor[i].classList.remove("d-none");
     } else {
-        cardContenedor[i].style.display = "none";
+        cardContenedor[i].classList.add("d-none");
     }
 
 }
