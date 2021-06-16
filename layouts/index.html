@@ -26,41 +26,112 @@
                 <a class="nav-link active" aria-current="page" href="https://catedu.es" target="_blank">CATEDU</a>
               </li>
             </ul>
-            <form>
-              <input class="form-control" type="text" placeholder="Busca" aria-label="Search" id="search" onkeyup="searchCourse()">
-            </form>
           </div>
         </div>
       </nav>
-    <div class="container">
-        {{ $dataC := getCSV "," "https://docs.google.com/spreadsheets/d/e/2PACX-1vR-BAUvNUjp2AeV_daeeqHReX0M3ew3ZpEL3nfkrz96uUd816mV_hV1uWMvbsACphEBGjqHJBswGwFz/pub?gid=1988493545&single=true&output=csv" }}
-        {{ $dataC := first 121 (after 1 $dataC) }}
-        <div class="card-group " id="courseInfo">
-        {{ range $i, $r := $dataC }}
-          {{ if ne (index $r 6) "0" }}
-            <div class="col-sm-6 col-lg-4 cardContenedor">
-                <div class="card mt-2 mx-1">
-                  {{ $imgUrl := index $r 7 }}
-                  {{ if $imgUrl }}
-                    <img class="card-img-top" src="{{ index $r 7 }}" alt="Card image cap">
-                  {{ else }}
-                    <img class="card-img-top" src="https://via.placeholder.com/150" alt="Card image cap">
-                  {{ end }}
-                    <div class="card-body">
-                        <h5 class="card-title">{{ index $r 0 }}</h5>
-                        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#course{{ index $r 6 }}" target="_blank">+ info</button>
-                        <a href="https://moodle.catedu.es/course/view.php?id={{ index $r 6 }}" class="btn btn-secondary" target="_blank">Curso</a>
-                        {{ $libro := index $r 5 }}
-                        {{ if $libro }}
-                          <a href="https://catedu.github.io/{{ $libro }}" class="btn btn-success" target="_blank">Libro</a>
-                        {{ end }}
-                    </div>
-                </div>
-            </div>
-            {{ end }}
-        {{ end }}
+    
+      {{ $dataC := getCSV "," "https://docs.google.com/spreadsheets/d/e/2PACX-1vR-BAUvNUjp2AeV_daeeqHReX0M3ew3ZpEL3nfkrz96uUd816mV_hV1uWMvbsACphEBGjqHJBswGwFz/pub?gid=1988493545&single=true&output=csv" }}
+      {{ $dataCursos := first 121 (after 1 $dataC) }}
+
+    <div class="container mb-5">
+      <div class="row">
+        <div class="col-4@sm col-3@md">
+          <div class="filters-group">
+            <label for="filters-search-input" class="filter-label">Busca</label>
+            <input class="textfield filter__search js-shuffle-search" type="search" id="filters-search-input" />
+          </div>
         </div>
-        {{ range $i, $r := $dataC }}
+      </div>
+      <div class="row">
+        <div class="col-12@sm filters-group-wrap">
+          <div class="filters-group">
+            <p class="filter-label">Filtra</p>
+            <div class="btn-group filter-options">
+              {{ range $i, $r := $dataCursos }}
+                {{ $tags := index $r 4 }}
+                {{ $tags }}
+              {{ end }}
+              <button class="btn btn--primary" data-group="space">Space</button>
+              <button class="btn btn--primary" data-group="nature">Nature</button>
+              <button class="btn btn--primary" data-group="animal">Animal</button>
+              <button class="btn btn--primary" data-group="city">City</button>
+
+            </div>
+          </div>
+          <fieldset class="filters-group">
+            <legend class="filter-label">Ordena</legend>
+            <div class="btn-group sort-options">
+              <label class="btn active">
+                <input type="radio" name="sort-value" value="dom" checked /> Default
+              </label>
+              <label class="btn">
+                <input type="radio" name="sort-value" value="title" /> Title
+              </label>
+              <label class="btn">
+                <input type="radio" name="sort-value" value="date-created" /> Date Created
+              </label>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="container">
+      <div id="grid" class="card-group row my-shuffle-container">
+      {{ range $i, $r := $dataCursos }}
+        {{ if ne (index $r 6) "0" }}
+        {{ $tags := index $r 4 }}
+        <div class="cardContenedor col-3@xs col-4@sm col-3@md picture-item" data-groups='{{ $tags }}' data-date-created="2017-04-30" data-title="{{ index $r 0 }}">
+          <div class="card mb-3 picture-item__inner">
+              <div class="card-img-top">
+                {{ $imgUrl := index $r 7 }}
+                {{ if $imgUrl }}
+                <img src="{{ index $r 7 }}"
+                  alt="unrelated course image" />
+                {{ else }}
+                  <img src="https://via.placeholder.com/150" alt="Card image cap">
+                {{ end }}
+              </div>
+            <div class="card-body">
+              <h5>{{ index $r 0 }}</h5>
+              <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#course{{ index $r 6 }}" target="_blank">+ info</button>
+                      <a href="https://moodle.catedu.es/course/view.php?id={{ index $r 6 }}" class="btn btn-secondary" target="_blank">Curso</a>
+                      {{ $libro := index $r 5 }}
+                      {{ if $libro }}
+                        <a href="https://catedu.github.io/{{ $libro }}" class="btn btn-success" target="_blank">Libro</a>
+                      {{ end }}
+                      <p>{{ split $tags "/"}}</p>
+              {{/*  <p class="picture-item__tags hidden@xs">nature</p>  */}}
+            </div>
+          </div>
+        </div>
+
+          {{/*  <div class="col-sm-6 col-lg-4 cardContenedor">
+              <div class="card mt-2 mx-1">
+                {{ $imgUrl := index $r 7 }}
+                {{ if $imgUrl }}
+                  <img class="card-img-top" src="{{ index $r 7 }}" alt="Card image cap">
+                {{ else }}
+                  <img class="card-img-top" src="https://via.placeholder.com/150" alt="Card image cap">
+                {{ end }}
+                  <div class="card-body">
+                      <h5 class="card-title">{{ index $r 0 }}</h5>
+                      <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#course{{ index $r 6 }}" target="_blank">+ info</button>
+                      <a href="https://moodle.catedu.es/course/view.php?id={{ index $r 6 }}" class="btn btn-secondary" target="_blank">Curso</a>
+                      {{ $libro := index $r 5 }}
+                      {{ if $libro }}
+                        <a href="https://catedu.github.io/{{ $libro }}" class="btn btn-success" target="_blank">Libro</a>
+                      {{ end }}
+                  </div>
+              </div>
+          </div>  */}}
+
+        {{ end }}
+      {{ end }}
+      </div>
+      </div>
+        {{ range $i, $r := $dataCursos }}
         <div class="modal" id="course{{ index $r 6 }}" tabindex="-1" aria-labelledby="course{{ index $r 6 }}Label" aria-hidden="true">
           <div class="modal-dialog modal-dialog-scrollable modal-fullscreen">
             <div class="modal-content">
@@ -95,5 +166,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     
     <script src="js/myscripts.js"></script>
+    {{ range site.Params.plugins.js}}
+    <script src="{{ .link | absURL }}"></script>
+    {{ end }}
   </body>
 </html>

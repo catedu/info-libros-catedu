@@ -3,3 +3,7 @@ languageCode = "es"
 title = "Información sobre Libros de CATEDU"
 
 publishDir = "web"
+
+# JS Plugins
+[[params.plugins.js]]
+link = "plugins/shuffle/shuffle.min.js"
