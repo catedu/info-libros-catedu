@@ -46,29 +46,29 @@
         <div class="col-12@sm filters-group-wrap">
           <div class="filters-group">
             <p class="filter-label">Filtra</p>
-            <div class="btn-group filter-options">
+            <div class="btn-toolbar filter-options">
+              {{ $tags := slice "Metodologías"}}
               {{ range $i, $r := $dataCursos }}
-                {{ $tags := index $r 4 }}
-                {{ $tags }}
+                {{ $tag := split (index $r 4) "/" }}
+                {{ $tags = $tags | append $tag }}
               {{ end }}
-              <button class="btn btn--primary" data-group="space">Space</button>
-              <button class="btn btn--primary" data-group="nature">Nature</button>
-              <button class="btn btn--primary" data-group="animal">Animal</button>
-              <button class="btn btn--primary" data-group="city">City</button>
-
+              {{ $uniqTags := $tags | uniq}}
+              {{ range $uniqTags }}
+                <button class="btn btn--primary" data-group="{{ . }}">{{ . }}</button> 
+              {{ end }}
             </div>
           </div>
           <fieldset class="filters-group">
             <legend class="filter-label">Ordena</legend>
             <div class="btn-group sort-options">
               <label class="btn active">
-                <input type="radio" name="sort-value" value="dom" checked /> Default
+                <input type="radio" name="sort-value" value="dom" checked /> Por defecto
               </label>
               <label class="btn">
                 <input type="radio" name="sort-value" value="title" /> Title
               </label>
               <label class="btn">
-                <input type="radio" name="sort-value" value="date-created" /> Date Created
+                <input type="radio" name="sort-value" value="date-created" /> Fecha de creación
               </label>
             </div>
           </fieldset>
@@ -82,7 +82,7 @@
       {{ range $i, $r := $dataCursos }}
         {{ if ne (index $r 6) "0" }}
         {{ $tags := index $r 4 }}
-        <div class="cardContenedor col-3@xs col-4@sm col-3@md picture-item" data-groups='{{ $tags }}' data-date-created="2017-04-30" data-title="{{ index $r 0 }}">
+        <div class="cardContenedor col-3@xs col-4@sm col-3@md picture-item" data-groups='["{{ delimit (split $tags "/") "\",\""}}"]' data-date-created="2017-04-30" data-title="{{ index $r 0 }}">
           <div class="card mb-3 picture-item__inner">
               <div class="card-img-top">
                 {{ $imgUrl := index $r 7 }}
@@ -102,6 +102,7 @@
                         <a href="https://catedu.github.io/{{ $libro }}" class="btn btn-success" target="_blank">Libro</a>
                       {{ end }}
                       <p>{{ split $tags "/"}}</p>
+                      <p>{{ len (split $tags "/")}}</p>
               {{/*  <p class="picture-item__tags hidden@xs">nature</p>  */}}
             </div>
           </div>
