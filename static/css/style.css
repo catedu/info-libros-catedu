@@ -21,11 +21,11 @@ body {
 /* Código pegao de https://codepen.io/Vestride/pen/ZVWmMX */
 
 /* Small reset */
-*,
+/* *,
 ::before,
 ::after {
   box-sizing: border-box;
-}
+} */
 
 body {
   color: #34495e;
@@ -107,6 +107,7 @@ $item-height: 220px;
 .picture-item__inner {
   position: relative;
   height: 100%;
+  width: 100%;
   overflow: hidden;
   background: #ecf0f1;
 }
