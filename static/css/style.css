@@ -48,7 +48,7 @@ a {
 
 a,
 a:visited {
-  color: #3498db
+  color: #5ec877
 }
 
 a:hover {
@@ -281,14 +281,14 @@ $item-height: 220px;
 }
 
 .btn--primary {
-  color: #3498db;
-  border-color: #3498db;
+  color: #5ec877;
+  border-color: #5ec877;
   background-color: rgba(52,152,219,0)
 }
 
 @media (-moz-touch-enabled:0),(pointer: fine) {
   .btn--primary:hover {
-    background-color:#3498db
+    background-color:#5ec877
   }
 }
 
@@ -297,7 +297,7 @@ $item-height: 220px;
 }
 
 .btn--primary.active,.btn--primary:active {
-  background-color: #3498db
+  background-color: #5ec877
 }
 
 .btn--primary:focus.active {
@@ -305,7 +305,7 @@ $item-height: 220px;
 }
 
 .btn--primary:disabled {
-  color: #3498db;
+  color: #5ec877;
   background-color: rgba(52,152,219,0)
 }
 
