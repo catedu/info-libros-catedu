@@ -31,6 +31,7 @@
       </nav>
     
       {{ $dataC := getCSV "," "https://docs.google.com/spreadsheets/d/e/2PACX-1vR-BAUvNUjp2AeV_daeeqHReX0M3ew3ZpEL3nfkrz96uUd816mV_hV1uWMvbsACphEBGjqHJBswGwFz/pub?gid=1988493545&single=true&output=csv" }}
+      <!-- {{ $dataC := getCSV "," "paraweb.csv" }} -->
       {{ $dataCursos := first 121 (after 1 $dataC) }}
 
     <div class="container mb-5">
@@ -96,7 +97,7 @@
             <div class="card-body">
               <h5 class="picture-item__title">{{ index $r 0 }}</h5>
               <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#course{{ index $r 6 }}" target="_blank">+ info</button>
-                      <a href="https://moodle.catedu.es/course/view.php?id={{ index $r 6 }}" class="btn btn-secondary" target="_blank">Curso</a>
+                      <a href="{{ index $r 6 }}" class="btn btn-secondary" target="_blank">Curso</a>
                       {{ $libro := index $r 5 }}
                       {{ if $libro }}
                         <a href="https://catedu.github.io/{{ $libro }}" class="btn btn-success" target="_blank">Libro</a>

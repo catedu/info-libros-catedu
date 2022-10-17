@@ -1,3 +1,4 @@
 .DS_Store
 web
 .hugo_build.lock
+*.csv

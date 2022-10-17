@@ -1,5 +1,5 @@
 .navbar {
-    background-color: #5ec877;
+    background-color: #5EC877;
 }
 
 .navbar-dark .navbar-toggler {
@@ -48,7 +48,7 @@ a {
 
 a,
 a:visited {
-  color: #5ec877
+  color: #5EC877
 }
 
 a:hover {
@@ -281,14 +281,14 @@ $item-height: 220px;
 }
 
 .btn--primary {
-  color: #5ec877;
-  border-color: #5ec877;
+  color: #5EC877;
+  border-color: #5EC877;
   background-color: rgba(52,152,219,0)
 }
 
 @media (-moz-touch-enabled:0),(pointer: fine) {
   .btn--primary:hover {
-    background-color:#5ec877
+    background-color:#5EC877
   }
 }
 
@@ -297,7 +297,7 @@ $item-height: 220px;
 }
 
 .btn--primary.active,.btn--primary:active {
-  background-color: #5ec877
+  background-color: #5EC877
 }
 
 .btn--primary:focus.active {
@@ -305,7 +305,7 @@ $item-height: 220px;
 }
 
 .btn--primary:disabled {
-  color: #5ec877;
+  color: #5EC877;
   background-color: rgba(52,152,219,0)
 }
 
