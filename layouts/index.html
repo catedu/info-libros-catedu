@@ -30,9 +30,9 @@
         </div>
       </nav>
     
-      {{ $dataC := getCSV "," "https://docs.google.com/spreadsheets/d/e/2PACX-1vR-BAUvNUjp2AeV_daeeqHReX0M3ew3ZpEL3nfkrz96uUd816mV_hV1uWMvbsACphEBGjqHJBswGwFz/pub?gid=1988493545&single=true&output=csv" }}
-      <!-- {{ $dataC := getCSV "," "paraweb.csv" }} -->
-      {{ $dataCursos := first 121 (after 1 $dataC) }}
+      <!-- {{ $dataC := getCSV "," "https://docs.google.com/spreadsheets/d/e/2PACX-1vR-BAUvNUjp2AeV_daeeqHReX0M3ew3ZpEL3nfkrz96uUd816mV_hV1uWMvbsACphEBGjqHJBswGwFz/pub?gid=1988493545&single=true&output=csv" }} -->
+      {{ $dataC := getCSV "," "webdata.csv" }}
+      {{ $dataCursos := first 164 (after 1 $dataC) }}
 
     <div class="container mb-5">
       <div class="row">
@@ -50,7 +50,7 @@
             <div class="btn-toolbar filter-options">
               {{ $tags := slice "Metodologías"}}
               {{ range $i, $r := $dataCursos }}
-                {{ $tag := split (index $r 4) "/" }}
+                {{ $tag := split (index $r 5) "/" }}
                 {{ $tags = $tags | append $tag }}
               {{ end }}
               {{ $uniqTags := $tags | uniq}}
@@ -82,13 +82,13 @@
       <div id="grid" class="card-group row my-shuffle-container">
       {{ range $i, $r := $dataCursos }}
         {{ if ne (index $r 6) "0" }}
-        {{ $tags := index $r 4 }}
+        {{ $tags := index $r 5 }}
         <div class="cardContenedor col-3@xs col-4@sm col-3@md picture-item" data-groups='["{{ delimit (split $tags "/") "\",\""}}"]' data-hours="{{ index $r 8 }}" data-title="{{ index $r 0 }}">
           <div class="card mb-3 picture-item__inner">
               <div class="card-img-top">
-                {{ $imgUrl := index $r 7 }}
+                {{ $imgUrl := index $r 36 }}
                 {{ if $imgUrl }}
-                <img src="{{ index $r 7 }}"
+                <img src="{{ index $imgUrl }}"
                   alt="unrelated course image" />
                 {{ else }}
                   <img src="https://via.placeholder.com/150" alt="Card image cap">

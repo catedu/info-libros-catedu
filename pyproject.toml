@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "info-libros-catedu"
+version = "0.1.0"
+description = "Simple script to get the data for the web"
+authors = ["deleyva <jesuslopezdeleyva@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+Pillow = "^9.2.0"
+numpy = "^1.23.4"
+pandas = "^1.5.1"
+requests = "^2.28.1"
+python-slugify = "^6.1.2"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
