@@ -2,4 +2,5 @@
 web
 .hugo_build.lock
 *.csv
-*.ipynb*
+.python-version
+*_checkpoints
