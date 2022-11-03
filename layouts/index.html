@@ -79,6 +79,7 @@
 
     <div class="container">
       <div id="grid" class="card-group row my-shuffle-container">
+        <!-- paginate generated elements -->
       {{ range $i, $r := $dataCursos }}
         {{ if ne (index $r 7) "0" }}
         {{ $tags := index $r 5 }}
@@ -98,9 +99,9 @@
               <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#course{{ index $r 0 }}" target="_blank">+ info</button>
                       <a href="{{ index $r 7 }}" class="btn btn-secondary" target="_blank">Curso</a>
                       {{ $libro := index $r 6 }}
-                      {{ if $libro }}
+                      <!-- {{ if $libro }}
                         <a href="https://catedu.github.io/{{ $libro }}" class="btn btn-success" target="_blank">Libro</a>
-                      {{ end }}
+                      {{ end }} -->
                       <p># {{ delimit (split $tags "/") ", "}}</p>
                       <p>Número de horas: {{ index $r 9 }}</p>
               {{/*  <p class="picture-item__tags hidden@xs">nature</p>  */}}
@@ -147,6 +148,8 @@
                 <h4>Contenidos</h4>
                 <p>{{ index $r 4 | markdownify }}</p>
                 <hr>
+                <h4>Competencias</h4>
+                {{ index $r 10 | markdownify}}
                 <!-- <h4>Requisitos</h4>
                 <p>{{ index $r 3 | markdownify }}</p> -->
               </div>

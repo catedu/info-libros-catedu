@@ -47,6 +47,8 @@ df = pd.read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vR-BAUvNUjp2Ae
 # Creo una columna con el path de la imagen y creo otro csv
 df['Portada'] = df['Portada'].replace(np.nan, '', regex=True)
 df['Images'] = df['Portada'].apply(lambda x: download_and_format_image_path(x))
+df1 = df.astype(str)
+df["Competencias"] = df1.filter(regex="\d\.\d").apply(lambda x: f"|{'|'.join(x.index)}|\n|{':---:|'*len(x.values)}\n|{'|'.join(x.values)}|", axis=1).str.replace("nan", "")
 # df['Course_id'] = df['Moodle_url'].apply(lambda x: x.split('/')[-1].split('=')[-1])
 df[[
     "Curso", 
@@ -58,6 +60,7 @@ df[[
     "Moodle_url", 
     "Portada", 
     "Horas",
+    "Competencias"
     # "Course_id",
     ]].to_csv("webdata.csv", index=True)
 
