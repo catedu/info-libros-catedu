@@ -30,9 +30,8 @@
         </div>
       </nav>
     
-      <!-- {{ $dataC := getCSV "," "https://docs.google.com/spreadsheets/d/e/2PACX-1vR-BAUvNUjp2AeV_daeeqHReX0M3ew3ZpEL3nfkrz96uUd816mV_hV1uWMvbsACphEBGjqHJBswGwFz/pub?gid=1988493545&single=true&output=csv" }} -->
       {{ $dataC := getCSV "," "webdata.csv" }}
-      {{ $dataCursos := first 164 (after 1 $dataC) }}
+      {{ $dataCursos := after 1 $dataC }}
 
     <div class="container mb-5">
       <div class="row">
@@ -81,12 +80,12 @@
     <div class="container">
       <div id="grid" class="card-group row my-shuffle-container">
       {{ range $i, $r := $dataCursos }}
-        {{ if ne (index $r 6) "0" }}
+        {{ if ne (index $r 7) "0" }}
         {{ $tags := index $r 5 }}
-        <div class="cardContenedor col-3@xs col-4@sm col-3@md picture-item" data-groups='["{{ delimit (split $tags "/") "\",\""}}"]' data-hours="{{ index $r 8 }}" data-title="{{ index $r 0 }}">
+        <div class="cardContenedor col-3@xs col-4@sm col-3@md picture-item" data-groups='["{{ delimit (split $tags "/") "\",\""}}"]' data-hours="{{ index $r 8 }}" data-title="{{ index $r 1 }}">
           <div class="card mb-3 picture-item__inner">
               <div class="card-img-top">
-                {{ $imgUrl := index $r 36 }}
+                {{ $imgUrl := index $r 8 }}
                 {{ if $imgUrl }}
                 <img src="{{ index $imgUrl }}"
                   alt="unrelated course image" />
@@ -95,15 +94,15 @@
                 {{ end }}
               </div>
             <div class="card-body">
-              <h5 class="picture-item__title">{{ index $r 0 }}</h5>
-              <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#course{{ index $r 6 }}" target="_blank">+ info</button>
-                      <a href="{{ index $r 6 }}" class="btn btn-secondary" target="_blank">Curso</a>
-                      {{ $libro := index $r 5 }}
+              <h5 class="picture-item__title">{{ index $r 1 }}</h5>
+              <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#course{{ index $r 0 }}" target="_blank">+ info</button>
+                      <a href="{{ index $r 7 }}" class="btn btn-secondary" target="_blank">Curso</a>
+                      {{ $libro := index $r 6 }}
                       {{ if $libro }}
                         <a href="https://catedu.github.io/{{ $libro }}" class="btn btn-success" target="_blank">Libro</a>
                       {{ end }}
                       <p># {{ delimit (split $tags "/") ", "}}</p>
-                      <p>Número de horas: {{ index $r 8 }}</p>
+                      <p>Número de horas: {{ index $r 9 }}</p>
               {{/*  <p class="picture-item__tags hidden@xs">nature</p>  */}}
             </div>
           </div>
@@ -111,16 +110,16 @@
 
           {{/*  <div class="col-sm-6 col-lg-4 cardContenedor">
               <div class="card mt-2 mx-1">
-                {{ $imgUrl := index $r 7 }}
+                {{ $imgUrl := index $r 8 }}
                 {{ if $imgUrl }}
-                  <img class="card-img-top" src="{{ index $r 7 }}" alt="Card image cap">
+                  <img class="card-img-top" src="{{ index $r 8 }}" alt="Card image cap">
                 {{ else }}
                   <img class="card-img-top" src="https://via.placeholder.com/150" alt="Card image cap">
                 {{ end }}
                   <div class="card-body">
-                      <h5 class="card-title">{{ index $r 0 }}</h5>
+                      <h5 class="card-title">{{ index $r 1 }}</h5>
                       <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#course{{ index $r 6 }}" target="_blank">+ info</button>
-                      <a href="https://moodle.catedu.es/course/view.php?id={{ index $r 6 }}" class="btn btn-secondary" target="_blank">Curso</a>
+                      <a href="{{ index $r 6 }}" class="btn btn-secondary" target="_blank">Curso</a>
                       {{ $libro := index $r 5 }}
                       {{ if $libro }}
                         <a href="https://catedu.github.io/{{ $libro }}" class="btn btn-success" target="_blank">Libro</a>
@@ -134,22 +133,22 @@
       </div>
       </div>
         {{ range $i, $r := $dataCursos }}
-        <div class="modal" id="course{{ index $r 6 }}" tabindex="-1" aria-labelledby="course{{ index $r 6 }}Label" aria-hidden="true">
+        <div class="modal" id="course{{ index $r 0 }}" tabindex="-1" aria-labelledby="course{{ index $r 0 }}Label" aria-hidden="true">
           <div class="modal-dialog modal-dialog-scrollable modal-fullscreen">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title">{{ index $r 0 }}</h5>
+                <h5 class="modal-title">{{ index $r 1 }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
                 <h4>Objetivos</h4>
-                <p>{{ index $r 1 | markdownify }}</p>
+                <p>{{ index $r 3 | markdownify }}</p>
                 <hr>
                 <h4>Contenidos</h4>
-                <p>{{ index $r 2 | markdownify }}</p>
+                <p>{{ index $r 4 | markdownify }}</p>
                 <hr>
-                <h4>Requisitos</h4>
-                <p>{{ index $r 3 | markdownify }}</p>
+                <!-- <h4>Requisitos</h4>
+                <p>{{ index $r 3 | markdownify }}</p> -->
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
