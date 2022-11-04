@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  web:
+    image: nginx
+    restart: always
+    volumes:
+     - ./web:/usr/share/nginx/html
+    environment:
+      VIRTUAL_HOST: "infocursos.catedu.es"
+      LETSENCRYPT_HOST: "infocursos.catedu.es"
+      LETSENCRYPT_EMAIL: "jesuslopezdeleyva@gmail.com"
+    networks:
+      - nginx-proxy_frontend
+
+networks:
+  nginx-proxy_frontend:
+    external: true

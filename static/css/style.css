@@ -17,10 +17,18 @@ body {
     padding-top: 70px; 
 }
 
-tbody, td, tfoot, th, thead, tr {
-  border-width: 1;
+table, th, td {
+  border: 1px solid;
+  border-color:#5EC877;
 }
 
+td {
+  padding: 10px;
+}
+
+th {
+  padding: 10px;
+}
 
 /* Código pegao de https://codepen.io/Vestride/pen/ZVWmMX */
 

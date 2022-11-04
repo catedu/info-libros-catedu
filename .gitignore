@@ -4,3 +4,4 @@ web
 *.csv
 .python-version
 *_checkpoints
+Makefile
