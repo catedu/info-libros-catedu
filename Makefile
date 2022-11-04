@@ -1,6 +1,10 @@
 serve:
 	hugo server --disableFastRender --noHTTPCache -D
 
+build:
+	rm -rf web
+	hugo --minify
+
 # deploy:
 # 	rm -rf web
 # 	hugo
