@@ -1,7 +1,5 @@
 .DS_Store
-web
 .hugo_build.lock
-*.csv
 .python-version
 *_checkpoints
 Makefile

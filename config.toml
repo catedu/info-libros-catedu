@@ -1,6 +1,6 @@
-baseURL = "infolibros.catedu.es"
+baseURL = "infocursos.catedu.es"
 languageCode = "es"
-title = "Información sobre Libros de CATEDU"
+title = "Información sobre cursos de CATEDU"
 
 publishDir = "web"
 
