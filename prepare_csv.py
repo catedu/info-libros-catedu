@@ -63,6 +63,9 @@ df["Competencias"] = (
     )
     .str.replace("nan", "")
 )
+
+df = df[(df["Curso Escolar"] == "2022-23") & (df["Convocatoria"] == 1)]
+
 # df['Course_id'] = df['Moodle_url'].apply(lambda x: x.split('/')[-1].split('=')[-1])
 df[
     [
