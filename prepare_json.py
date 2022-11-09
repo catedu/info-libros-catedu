@@ -76,6 +76,7 @@ pd.concat([df[
         "Etiquetas",
         "Libros",
         "Moodle_url",
+        "Images",
         "Portada",
         "Horas",
         # "Competencias"
