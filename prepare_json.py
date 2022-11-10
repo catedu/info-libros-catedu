@@ -54,6 +54,7 @@ df = pd.read_csv(
 # Creo una columna con el path de la imagen y creo otro csv
 df["Portada"] = df["Portada"].replace(np.nan, "", regex=True)
 df["Images"] = df["Portada"].apply(lambda x: download_and_format_image_path(x))
+df["id"] = df["Moodle_url"].fillna("").apply(lambda x: x.split("id=")[-1] if x.startswith("http") else "")
 df1 = df.filter(regex="\d\.\d").fillna("").astype(str)
 # df["Competencias"] = (
 #     df1.filter(regex="\d\.\d")
@@ -67,8 +68,9 @@ df1 = df.filter(regex="\d\.\d").fillna("").astype(str)
 df = df[(df["Curso Escolar"] == "2022-23") & (df["Convocatoria"] == 1)]
 
 # df['Course_id'] = df['Moodle_url'].apply(lambda x: x.split('/')[-1].split('=')[-1])
-pd.concat([df[
+final_df = pd.concat([df[
     [
+        "id",
         "Curso",
         "Descripción",
         "Objetivos",
@@ -81,4 +83,6 @@ pd.concat([df[
         "Horas",
         # "Competencias"
         # "Course_id",
-    ]], df1], axis=1).to_json("webdata.json", orient="records", force_ascii=False)
+    ]], df1], axis=1)
+
+final_df[final_df["Curso"].notna()].to_json("webdata.json", orient="records", force_ascii=False)
