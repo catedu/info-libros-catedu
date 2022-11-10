@@ -54,7 +54,8 @@ df = pd.read_csv(
 # Creo una columna con el path de la imagen y creo otro csv
 df["Portada"] = df["Portada"].replace(np.nan, "", regex=True)
 df["Images"] = df["Portada"].apply(lambda x: download_and_format_image_path(x))
-df["id"] = df["Moodle_url"].fillna("").apply(lambda x: x.split("id=")[-1] if x.startswith("http") else "")
+# df["id"] = df["Moodle_url"].fillna("").apply(lambda x: x.split("id=")[-1] if x.startswith("http") else "")
+df['id'] = df.index.astype(str)
 df1 = df.filter(regex="\d\.\d").fillna("").astype(str)
 # df["Competencias"] = (
 #     df1.filter(regex="\d\.\d")
