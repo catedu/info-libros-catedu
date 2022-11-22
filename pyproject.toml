@@ -12,6 +12,7 @@ numpy = "^1.23.4"
 pandas = "^1.5.1"
 requests = "^2.28.1"
 python-slugify = "^6.1.2"
+catedu-scripts = {path = "../catedu_scripts/dist/catedu_scripts-0.1.16-py3-none-any.whl"}
 
 [tool.poetry.dev-dependencies]
 
