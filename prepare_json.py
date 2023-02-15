@@ -1,4 +1,5 @@
 from pathlib import Path
+import shutil
 
 import pandas as pd
 import requests
@@ -8,21 +9,35 @@ from PIL import Image
 
 # function to reduce the size of the image
 def reduce_image_size(image_path):
-    img = Image.open(image_path)
-    img.save(image_path, optimize=True, quality=65)
+    try:
+        img = Image.open(image_path)
+        img.save(image_path, optimize=True, quality=65)
+    except Exception as e:
+        print(e)
 
 
 def download_and_format_image_path(url):
-    path = Path(url)
-    ref_path = f"images/{slugify(path.stem)}{path.suffix}"
-    output_path = f"static/{ref_path}"
-    file_path = Path(output_path)
-    if not file_path.exists():
-        r = requests.get(url)
-        with open(output_path, "wb") as f:
-            f.write(r.content)
-        reduce_image_size(output_path)
-    return ref_path
+    try:
+        path = Path(url)
+        ref_path = f"images/{slugify(path.stem)}{path.suffix}"
+        output_path = f"static/{ref_path}"
+        file_path = Path(output_path)
+        if not file_path.exists():
+            r = requests.get(url)
+            with open(output_path, "wb") as f:
+                f.write(r.content)
+            reduce_image_size(output_path)
+        return ref_path
+    except Exception as e:
+        print(e)
+        
+def copy_images_to_destiny():
+    # get name list of images present in the static/images folder and copy them to the destiny folder if they are not present
+    source_images = [x for x in Path("static/images").iterdir() if x.is_file()]
+    destiny_images = [x for x in Path("../info-libros-catedu-v2/public/images").iterdir() if x.is_file()]
+    for image in source_images:
+        if image.name not in [x.name for x in destiny_images]:
+            shutil.copy(str(image.absolute()), "../info-libros-catedu-v2/public/images")
 
 
 def get_status(curso, moodle_url, portada):
@@ -66,7 +81,7 @@ df1 = df.filter(regex="\d\.\d").fillna("").astype(str)
 #     .str.replace("nan", "")
 # )
 
-df = df[(df["Curso Escolar"] == "2022-23") & (df["Convocatoria"] == 1)]
+df = df[(df["Curso Escolar"] == "2022-23") & (df["Convocatoria"] != 0)]
 
 # df['Course_id'] = df['Moodle_url'].apply(lambda x: x.split('/')[-1].split('=')[-1])
 final_df = pd.concat([df[
@@ -87,3 +102,6 @@ final_df = pd.concat([df[
     ]], df1], axis=1)
 
 final_df[final_df["Curso"].notna()].to_json("webdata.json", orient="records", force_ascii=False)
+
+copy_images_to_destiny()
+Path("webdata.json").rename("../info-libros-catedu-v2/src/data/courses.json")
