@@ -11,3 +11,7 @@ build:
 # 	ssh root@csv.aeducar.es rm -rf info-libros-catedu/web
 # 	scp -r web root@csv.aeducar.es:"/root/info-libros-catedu/"
 # 	ssh -t root@csv.aeducar.es 'cd info-libros-catedu/ && docker-compose restart'
+
+buildjuanda:
+	python prepare_json.py
+	cd ../info-libros-catedu-v2 && npm run build && npm run deploy
